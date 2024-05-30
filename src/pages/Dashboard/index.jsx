@@ -1,4 +1,5 @@
 import { useGetCurrentUser } from "@/shared/hooks/useGetCurrentUser"
+import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
 const Dashboard = () => {
@@ -8,7 +9,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (currentUser && !currentUser.email) {
-      navigate('auth/login');
+      navigate('/');
     }
   }, [currentUser]);
   

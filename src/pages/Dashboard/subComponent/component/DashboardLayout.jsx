@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Bell, LogOut, Search, Settings, User } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import useGetCurrentUser from '@/shared/hooks/useGetCurrentUser';
 
 const DashboardLayout = ({children}) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -8,6 +9,8 @@ const DashboardLayout = ({children}) => {
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
+
+  const { logout, currentUser } = useGetCurrentUser();
 
   const navItems = [
     { label: 'Dashboard', icon: <DashboardIcon /> },
@@ -49,7 +52,7 @@ const DashboardLayout = ({children}) => {
           </nav>
           <div className="mt-28 space-y-1 -mx-3">
             <NavItem label="Settings" icon={<Settings className="w-5 h-5" />} />
-            <NavItem label="Logout" icon={<LogOut className="w-5 h-5 text-red-700 "  />} />
+            <NavItem label="Logout" icon={<LogOut className="w-5 h-5 text-red-700 "  />} onClick={logout} />
           </div>
         </div>
       </aside>
@@ -90,7 +93,7 @@ const DashboardLayout = ({children}) => {
               <button className="flex items-center focus:outline-none">
                 <User className="w-6 h-6 text-gray-600 dark:text-gray-300" />
                 <span className="hidden mx-2 text-gray-600 dark:text-gray-300 lg:block">
-                  John Doe
+                {currentUser ? currentUser.name : 'Guest'}
                 </span>
               </button>
             </div>

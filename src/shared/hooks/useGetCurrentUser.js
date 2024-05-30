@@ -32,4 +32,4 @@ export const useGetCurrentUser = () => {
   };
 };
 
-export default useLogout;
+export default useGetCurrentUser;
