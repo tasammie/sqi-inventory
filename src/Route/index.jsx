@@ -21,6 +21,7 @@ export const route = createBrowserRouter([
     path: "/signup",
     element: <SignUp />,
   },
+  
 
   {
     path: "/Dashboard",

@@ -35,19 +35,19 @@ const DashboardLayout = ({children}) => {
         </a>
 
         <div className="flex flex-col justify-between flex-1 mt-6">
-          <nav className="-mx-3 space-y-6">
-            <div className="space-y-1.5">
+          <nav className="-mx-3 space-y-3 ">
+            <div className="space-y-8">
               <label className="px-3 text-xs text-gray-500 uppercase dark:text-gray-400">
                 Analytics
               </label>
               {navItems.map((item) => (
                 <Link to={item.label == 'Dashboard' ? '/dashboard' : `/dashboard/${item.label}`}>
-                <NavItem key={item.label} label={item.label} icon={item.icon} />
+                <NavItem key={item.label} label={item.label} icon={item.icon}  />
                 </Link>
               ))}
             </div>
           </nav>
-          <div className="mt-4 space-y-1 -mx-3">
+          <div className="mt-28 space-y-1 -mx-3">
             <NavItem label="Settings" icon={<Settings className="w-5 h-5" />} />
             <NavItem label="Logout" icon={<LogOut className="w-5 h-5 text-red-700 "  />} />
           </div>
@@ -209,7 +209,7 @@ const MenuIcon = () => (
     viewBox="0 0 24 24"
     strokeWidth="1.5"
     stroke="currentColor"
-    className="w-6 h-6"
+    className="w-6 h-6 text-gray-200"
   >
     <path
       strokeLinecap="round"

@@ -1,12 +1,19 @@
-import DashboardForm from "./subComponent/component/DashboardLayout"
+import { useGetCurrentUser } from "@/shared/hooks/useGetCurrentUser"
+import { useNavigate } from "react-router-dom"
 
 const Dashboard = () => {
+  const {currentUser} = useGetCurrentUser
+  const navigate = useNavigate()
+  console.log(currentUser, "nanana");
+
+  useEffect(() => {
+    if (currentUser && !currentUser.email) {
+      navigate('auth/login');
+    }
+  }, [currentUser]);
+  
   return (
-    <div>
-      {/* <DashboardForm/> */}
-      <h1>Index dashboard</h1>
-      
-    </div>
+    <div>hello {currentUser?.firstName + " " + currentUser?.lastName}</div>
   )
 }
 
