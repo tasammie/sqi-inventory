@@ -26,7 +26,7 @@ const DashboardLayout = ({ children }) => {
     <div className="flex">
       {/* Sidebar */}
       <aside
-        className={`flex flex-col w-64 h-screen px-5 py-8 overflow-y-auto bg-white border-r dark:bg-gray-900 dark:border-gray-700 ${
+        className={`flex flex-col w-64 h-screen	 px-5 py-8 overflow-y-auto bg-white border-r dark:bg-gray-900 dark:border-gray-700 ${
           isSidebarOpen ? "block" : "hidden lg:block"
         }`}
       >
