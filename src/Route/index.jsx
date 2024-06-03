@@ -37,7 +37,7 @@ export const route = createBrowserRouter([
       },
       {
         path: 'orders',
-        element: <Orders />
+        element: <Orders /> 
       }
     ],
   },

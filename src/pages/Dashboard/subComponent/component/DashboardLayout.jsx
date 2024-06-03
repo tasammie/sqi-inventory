@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { Bell, LogOut, Search, Settings, User } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import useGetCurrentUser from '@/shared/hooks/useGetCurrentUser';
+import React, { useState } from "react";
+import { Bell, LogInIcon, LogOut, Search, Settings, User } from "lucide-react";
+import { Link, NavLink } from "react-router-dom";
+import useGetCurrentUser from "@/shared/hooks/useGetCurrentUser";
 
-const DashboardLayout = ({children}) => {
+
+const DashboardLayout = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
@@ -13,12 +14,12 @@ const DashboardLayout = ({children}) => {
   const { logout, currentUser } = useGetCurrentUser();
 
   const navItems = [
-    { label: 'Dashboard', icon: <DashboardIcon /> },
-    { label: 'Inventory', icon: <InventoryIcon /> },
-    { label: 'Orders', icon: <InventoryIcon /> },
-    { label: 'Reports', icon: <ReportsIcon /> },
-    { label: 'Supplier', icon: <SupplierIcon /> },
-    { label: 'Customers', icon: <CustomersIcon /> },
+    { label: "Dashboard", icon: <DashboardIcon /> },
+    { label: "Inventory", icon: <InventoryIcon /> },
+    { label: "Orders", icon: <InventoryIcon /> },
+    { label: "Reports", icon: <ReportsIcon /> },
+    { label: "Supplier", icon: <SupplierIcon /> },
+    { label: "Customers", icon: <CustomersIcon /> },
   ];
 
   return (
@@ -26,7 +27,7 @@ const DashboardLayout = ({children}) => {
       {/* Sidebar */}
       <aside
         className={`flex flex-col w-64 h-screen px-5 py-8 overflow-y-auto bg-white border-r dark:bg-gray-900 dark:border-gray-700 ${
-          isSidebarOpen ? 'block' : 'hidden lg:block'
+          isSidebarOpen ? "block" : "hidden lg:block"
         }`}
       >
         <a href="#">
@@ -39,20 +40,44 @@ const DashboardLayout = ({children}) => {
 
         <div className="flex flex-col justify-between flex-1 mt-6">
           <nav className="-mx-3 space-y-3 ">
-            <div className="space-y-8">
+            <div className="space-y-2">
               <label className="px-3 text-xs text-gray-500 uppercase dark:text-gray-400">
                 Analytics
               </label>
-              {navItems.map((item) => (
+              {/* {navItems.map((item) => (
                 <Link to={item.label == 'Dashboard' ? '/dashboard' : `/dashboard/${item.label}`}>
                 <NavItem key={item.label} label={item.label} icon={item.icon}  />
                 </Link>
+              ))} */}
+              {navItems.map((item) => (
+                <NavLink
+                  key={item.label}
+                  to={
+                    item.label === "Dashboard"
+                      ? "/dashboard"
+                      : `/dashboard/${item.label}`
+                  }
+                  className={({ isActive, isPending }) =>
+                    `${isPending ? "text-red-900" : isActive ? "text-blue-400" : "text-gray-600 dark:text-gray-200"} flex items-center px-3 py-2  rounded-lg  hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 active:bg-gray-100`
+                  }
+                >
+                  {/* <NavItem label={item.label} icon={item.icon} /> */}
+                  {item.icon}
+    <span className="mx-2 text-sm font-medium">{item.label}</span>
+                </NavLink>
               ))}
             </div>
           </nav>
           <div className="mt-28 space-y-1 -mx-3">
             <NavItem label="Settings" icon={<Settings className="w-5 h-5" />} />
-            <NavItem label="Logout" icon={<LogOut className="w-5 h-5 text-red-700 "  />} onClick={logout} />
+
+            <div
+              className="flex items-center space-x-1 text-red-400 cursor-pointer"
+              onClick={logout}
+            >
+              <LogInIcon className="w-5 h-5 ml-2.5 mr-1.5" />
+              <span >Logout</span>
+            </div>
           </div>
         </div>
       </aside>
@@ -91,10 +116,18 @@ const DashboardLayout = ({children}) => {
               </button>
 
               <button className="flex items-center focus:outline-none">
-                <User className="w-6 h-6 text-gray-600 dark:text-gray-300" />
+                {/* <User className="w-6 h-6 text-gray-600 dark:text-gray-300" /> */}
+                
                 <span className="hidden mx-2 text-gray-600 dark:text-gray-300 lg:block">
-                {currentUser ? currentUser.name : 'Guest'}
+                  hello {currentUser?.firstName}
                 </span>
+                {currentUser?.profile_image && (
+          <img
+            src={currentUser.profile_image}
+            alt={`${currentUser.firstName}'s profile`}
+            className="w-10 h-10 rounded-full mx-2"
+          />
+        )}
               </button>
             </div>
           </div>
@@ -112,8 +145,9 @@ const DashboardLayout = ({children}) => {
 
 const NavItem = ({ label, icon }) => (
   <a
-    className="flex items-center px-3 py-2 text-gray-600 rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+    className="flex items-center px-3 py-2 text-gray-600 rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 active:bg-gray-100 "
     href="#"
+
   >
     {icon}
     <span className="mx-2 text-sm font-medium">{label}</span>
