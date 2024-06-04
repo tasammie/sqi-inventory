@@ -23,7 +23,7 @@ const DashboardLayout = ({ children }) => {
   ];
 
   return (
-    <div className="flex">
+    <div className="flex fixed w-full">
       {/* Sidebar */}
       <aside
         className={`flex flex-col w-64 h-screen	 px-5 py-8 overflow-y-auto bg-white border-r dark:bg-gray-900 dark:border-gray-700 ${
@@ -44,11 +44,7 @@ const DashboardLayout = ({ children }) => {
               <label className="px-3 text-xs text-gray-500 uppercase dark:text-gray-400">
                 Analytics
               </label>
-              {/* {navItems.map((item) => (
-                <Link to={item.label == 'Dashboard' ? '/dashboard' : `/dashboard/${item.label}`}>
-                <NavItem key={item.label} label={item.label} icon={item.icon}  />
-                </Link>
-              ))} */}
+           
               {navItems.map((item) => (
                 <NavLink
                   key={item.label}
@@ -83,7 +79,7 @@ const DashboardLayout = ({ children }) => {
       </aside>
 
       {/* Main Content */}
-      <div className="flex-1">
+      <div className="flex-1 w-full">
         <header className="relative bg-white dark:bg-gray-900">
           <div className="flex items-center justify-between p-6 border-b dark:border-gray-700">
             <div className="flex items-center">
@@ -257,3 +253,11 @@ const MenuIcon = () => (
 );
 
 export default DashboardLayout;
+
+
+
+   {/* {navItems.map((item) => (
+                <Link to={item.label == 'Dashboard' ? '/dashboard' : `/dashboard/${item.label}`}>
+                <NavItem key={item.label} label={item.label} icon={item.icon}  />
+                </Link>
+              ))} */}

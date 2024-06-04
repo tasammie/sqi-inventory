@@ -1,13 +1,27 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useGetProduct } from "../hooks/inventory-hook/useGetProducts";
+import AddProductModal from "../AddProductModal";
 
 const Inventory = () => {
-  const {product, isLoading, isError} = useGetProduct()
+  const [showProductForm, setShowProductForm] = useState(false);
+
+  const { product, isLoading, isError, checkStatus, productStatus, handle } =
+    useGetProduct();
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 5; 
+  const addProduct = () => {
+    setShowProductForm(true);
+  };
+  const productsPerPage = 10;
+
+  if (!product || product.length === 0) {
+    return <div>No products available</div>;
+  }
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = product.slice(indexOfFirstProduct, indexOfLastProduct);
+  const currentProducts = product.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
 
   const nextPage = () => {
     setCurrentPage((prevPage) => prevPage + 1);
@@ -24,7 +38,7 @@ const Inventory = () => {
   }
   return (
     <div>
-      <main className="p-2 bg-gray-100 dark:bg-gray-900 dark:text-white">
+      <main className="p-2 bg-gray-100 dark:bg-gray-900 dark:text-white ">
         <div className="container mx-auto">
           {/* New card starts here */}
           {/* <div className="flex space-x-4">
@@ -72,7 +86,10 @@ const Inventory = () => {
                 />
               </div>
               <div className="flex space-x-4">
-                <button className="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
+                <button
+                  onClick={addProduct}
+                  className="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer"
+                >
                   Add Product
                 </button>
                 <button className="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
@@ -81,8 +98,8 @@ const Inventory = () => {
               </div>
             </div>
           </div>
-          <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
-            <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
+          <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto overflow-y-auto">
+            <div className="inline-block min-w-full shadow rounded-lg h-[80vh]">
               <table className="min-w-full leading-normal">
                 <thead>
                   <tr>
@@ -104,40 +121,62 @@ const Inventory = () => {
                   </tr>
                 </thead>
                 <tbody>
-                    {currentProducts.length > 0 ? (
-                      currentProducts.map((item) => (
-                        <tr key={item.id}>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                            <p className="text-gray-900 whitespace-no-wrap">{item.name}</p>
-                          </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                            <p className="text-gray-900 whitespace-no-wrap">{item.price}</p>
-                          </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                            <p className="text-gray-900 whitespace-no-wrap">{item.category}</p>
-                          </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                            <p className="text-gray-900 whitespace-no-wrap">{item.stock}</p>
-                          </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                            <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-                              <span aria-hidden className="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
-                              <span className="relative">{item.status}</span>
+                  {currentProducts.length > 0 ? (
+                    currentProducts.map((item) => (
+                      <tr key={item.id}>
+                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                          <p className="text-gray-900 whitespace-no-wrap">
+                            {item.name}
+                          </p>
+                        </td>
+                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                          <p className="text-gray-900 whitespace-no-wrap">
+                            {item.price}
+                          </p>
+                        </td>
+                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                          <p className="text-gray-900 whitespace-no-wrap">
+                            {item.category}
+                          </p>
+                        </td>
+                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                          <p className="text-gray-900 whitespace-no-wrap">
+                            {item.stock}
+                          </p>
+                        </td>
+                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                          <span
+                            className={`relative inline-block px-3 py-1 font-semibold leading-tight ${
+                              item.stock > 0 ? "text-green-900" : "text-red-900"
+                            }`}
+                          >
+                            <span
+                              aria-hidden
+                              className={`absolute inset-0 opacity-50 rounded-full ${
+                                item.stock > 0 ? "bg-green-200" : "bg-red-200"
+                              }`}
+                            ></span>
+                            <span className="relative">
+                              {item.stock > 0 ? "Available" : "Out of Stock"}
                             </span>
-                          </td>
-                        </tr>
-                      ))
-                    ) : (
-                      <tr>
-                        <td colSpan="5" className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                          <div className="text-center">No products available</div>
+                          </span>
                         </td>
                       </tr>
-                    )}
-                  </tbody>
+                    ))
+                  ) : (
+                    <tr>
+                      <td
+                        colSpan="5"
+                        className="px-5 py-5 border-b border-gray-200 bg-white text-sm"
+                      >
+                        <div className="text-center">No products available</div>
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
               </table>
             </div>
-            <div className="flex justify-between mt-4">
+            <div className="flex gap-2 justify-center mt-4">
               <button
                 onClick={prevPage}
                 disabled={currentPage === 1}
@@ -156,6 +195,12 @@ const Inventory = () => {
           </div>
         </div>
       </main>
+      <AddProductModal
+        showProductForm={showProductForm}
+        cancelButton={() => {
+          setShowProductForm(false);
+        }}
+      />
     </div>
   );
 };

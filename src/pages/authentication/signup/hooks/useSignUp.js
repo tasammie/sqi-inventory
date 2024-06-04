@@ -4,7 +4,8 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from "zod";
-import axios from "axios";
+import { UserRequest } from "@/shared/Api/request";
+
 
 
 const formSchema = z.object({
@@ -32,7 +33,8 @@ export const useSignUp = () => {
     const onSubmit = async (data) => {
         setisLoading(true)
         try {
-            const res = await axios.post("http://localhost:5000/api/v1/users/register", data)
+            // const res = await axios.post("http://localhost:5000/api/v1/users/register", data)
+            const res = await UserRequest.post("/users/register", data);
             toast({
                 title: "Success",
                 description: `${res?.data?.firstName} Welcome to Our Website pls login`,
