@@ -5,11 +5,11 @@ import { useEffect, useState } from "react";
 export const useGetProduct = () => {
   const [product, setProduct] = useState(null);
   const [productStatus, setProductStatus] = useState([]);
-  const [handleAddProduct, setHandleAddProduct] = useState(null);
+  const [handleAddProduct, setHandleAddProduct] = useState();
   const [isLoading, setLoading] = useState(false);
-  const [isError, setError] = useState(null);
+  const [isError, setError] = useState();
   const [imageFile, setImageFile] = useState();
-  const [imageSrc, setImageSrc] = useState()
+  const [imagePreview, setImagePreview] = useState();
   const { toast } = useToast();
 
     
@@ -26,13 +26,30 @@ export const useGetProduct = () => {
 
 
   
-  const handleChange = (e) => {
+//   const handleChange = (e) => {
+//     const { name, value, files } = e.target;
+//     setFormData({
+//       ...formData,
+//       [name]: files ? files[0] : value,
+//     });
+//   };
+
+const handleChange = (e) => {
     const { name, value, files } = e.target;
-    setFormData({
-      ...formData,
-      [name]: files ? files[0] : value,
-    });
+    if (files && files[0]) {
+      const file = files[0];
+      setImageFile(file);
+      const previewUrl = URL.createObjectURL(file);
+      setImagePreview(previewUrl);
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
   };
+
+
   const getAllProducts = async () => {
     setLoading(true);
     try {
@@ -64,8 +81,6 @@ export const useGetProduct = () => {
 
 const addSingleProduct = async () => {
     console.log(imageFile);
-    // if(!imageFile)
-    //     return ("Please select an image");
     const formDataState = new FormData();
     formDataState.append("name", formData.productName);
     formDataState.append("price", formData.productPrice);
@@ -131,7 +146,8 @@ const addSingleProduct = async () => {
     handleChange,
     formData,
     setFormData,
-    setImageFile
+    setImageFile,
+    imagePreview
     
   };
 };

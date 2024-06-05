@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useGetProduct } from "./hooks/inventory-hook/useGetProducts";
 
 const AddProductModal = ({ showProductForm, cancelButton }) => {
-  const { addSingleProduct, handleChange, formData, setImageFile } =
+  const { addSingleProduct, handleChange, formData,  imagePreview  } =
     useGetProduct();
 
   const handleSubmit = async (e) => {
@@ -127,9 +127,19 @@ const AddProductModal = ({ showProductForm, cancelButton }) => {
                     type="file"
                     id="productImage"
                     name="productImage"
-                    className="mt-1 p-2 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
-                    onChange={(e) => setImageFile(e.target.files[0])}
+                    className="mt-1 p-2 block w-46 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+                    onChange={handleChange} 
+                    
                   />
+                  {imagePreview && (
+                    <div className="mt-2">
+                      <img
+                        src={imagePreview}
+                        alt="Image Preview"
+                        className="w-40 h-20 rounded-md border border-gray-300 shadow-sm"
+                      />
+                    </div>
+                  )}
                 </div>
                 <div className="bg-gray-50 px-4 py-3 sm:px-6 flex justify-end p-4 gap-4 flex-row">
                   <button
@@ -156,3 +166,4 @@ const AddProductModal = ({ showProductForm, cancelButton }) => {
 };
 
 export default AddProductModal;
+
