@@ -1,27 +1,39 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { EyeIcon } from "lucide-react";
 import { useGetProduct } from "../hooks/inventory-hook/useGetProducts";
 import AddProductModal from "../AddProductModal";
 
 const Inventory = () => {
   const [showProductForm, setShowProductForm] = useState(false);
-
-  const { product, isLoading, isError, checkStatus, productStatus, handle } =
-    useGetProduct();
   const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 10;
+
+  const { product, isLoading, isError } = useGetProduct();
+
   const addProduct = () => {
     setShowProductForm(true);
   };
-  const productsPerPage = 10;
+
+  const slice = (id, length) => {
+    return id.slice(0, length);
+  };
+
+  if (isLoading) {
+    return <div className="text-3xl text-black">Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Error loading products...</div>;
+  }
 
   if (!product || product.length === 0) {
     return <div>No products available</div>;
   }
+
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = product.slice(
-    indexOfFirstProduct,
-    indexOfLastProduct
-  );
+  const currentProducts = product.slice(indexOfFirstProduct, indexOfLastProduct);
 
   const nextPage = () => {
     setCurrentPage((prevPage) => prevPage + 1);
@@ -30,36 +42,11 @@ const Inventory = () => {
   const prevPage = () => {
     setCurrentPage((prevPage) => prevPage - 1);
   };
-  if (isLoading) {
-    return <div className="text-3xl text-black">loading...</div>;
-  }
-  if (isError) {
-    return <div>error...</div>;
-  }
+
   return (
-    <div>
+    <div >
       <main className="p-2 bg-gray-100 dark:bg-gray-900 dark:text-white ">
         <div className="container mx-auto">
-          {/* New card starts here */}
-          {/* <div className="flex space-x-4">
-            <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-3 ">
-              <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">
-                Card Title
-              </h2>
-              <p className="text-gray-600 dark:text-gray-400">
-                Card content goes here. This is where you can add any text or
-                additional components.
-              </p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas
-              sed vitae amet saepe cumque, veritatis neque reprehenderit aliquam
-              corrupti taque,
-            </div>
-          </div> */}
-          {/* New card ends here */}
-          <div></div>
-          {/* Add your other main content here */}
-        </div>
-        <div>
           <div className="flex flex-col sm:flex-row items-center justify-between pb-6">
             <div className="mb-4 sm:mb-0">
               <h1 className="text-white-600 text-xl font-bold">Products</h1>
@@ -82,7 +69,7 @@ const Inventory = () => {
                 <input
                   className="bg-gray-50 outline-none ml-1 block w-full sm:w-auto"
                   type="text"
-                  placeholder="search..."
+                  placeholder="Search..."
                 />
               </div>
               <div className="flex space-x-4">
@@ -100,9 +87,12 @@ const Inventory = () => {
           </div>
           <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto overflow-y-auto">
             <div className="inline-block min-w-full shadow rounded-lg h-[80vh]">
-              <table className="min-w-full leading-normal">
+              <table className="min-w-full leading-normal mb-80">
                 <thead>
                   <tr>
+                    <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      Product ID
+                    </th>
                     <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       Product Name
                     </th>
@@ -113,17 +103,25 @@ const Inventory = () => {
                       Category
                     </th>
                     <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                      Quartity
+                      Quantity
                     </th>
                     <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       Status
+                    </th>
+                    <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      View Details
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   {currentProducts.length > 0 ? (
                     currentProducts.map((item) => (
-                      <tr key={item.id}>
+                      <tr key={item._id}>
+                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                          <p className="text-gray-900 whitespace-no-wrap">
+                            {slice(item._id, 8)}
+                          </p>
+                        </td>
                         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                           <p className="text-gray-900 whitespace-no-wrap">
                             {item.name}
@@ -161,12 +159,19 @@ const Inventory = () => {
                             </span>
                           </span>
                         </td>
+                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                          <p className="text-gray-900 whitespace-no-wrap">
+                            <Link to={`/dashboard/products/${item._id}`}>
+                              <EyeIcon className="h-5 w-5 text-gray-500" />
+                            </Link>
+                          </p>
+                        </td>
                       </tr>
                     ))
                   ) : (
                     <tr>
                       <td
-                        colSpan="5"
+                        colSpan="7"
                         className="px-5 py-5 border-b border-gray-200 bg-white text-sm"
                       >
                         <div className="text-center">No products available</div>
@@ -176,7 +181,10 @@ const Inventory = () => {
                 </tbody>
               </table>
             </div>
-            <div className="flex gap-2 justify-center mt-4">
+           
+          </div>
+        </div>
+        <div className="p-3 flex gap-2 justify-center ">
               <button
                 onClick={prevPage}
                 disabled={currentPage === 1}
@@ -192,8 +200,6 @@ const Inventory = () => {
                 Next
               </button>
             </div>
-          </div>
-        </div>
       </main>
       <AddProductModal
         showProductForm={showProductForm}
@@ -201,8 +207,30 @@ const Inventory = () => {
           setShowProductForm(false);
         }}
       />
+          
     </div>
   );
 };
 
 export default Inventory;
+
+
+
+  {/* New card starts here */}
+          {/* <div className="flex space-x-4">
+            <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-3 ">
+              <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">
+                Card Title
+              </h2>
+              <p className="text-gray-600 dark:text-gray-400">
+                Card content goes here. This is where you can add any text or
+                additional components.
+              </p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas
+              sed vitae amet saepe cumque, veritatis neque reprehenderit aliquam
+              corrupti taque,
+            </div>
+          </div> */}
+          {/* New card ends here */}
+          <div></div>
+          {/* Add your other main content here */}

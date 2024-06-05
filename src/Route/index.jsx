@@ -8,6 +8,7 @@ import Orders from "@/pages/Dashboard/subComponent/component/Orders";
 import Customers from "@/pages/Dashboard/subComponent/component/Customers";
 import Dashboard from "@/pages/Dashboard";
 import DashboardRoute from "./DashboardRoute";
+import ProductDetails from "@/pages/Dashboard/subComponent/component/ProductDetails";
 
 
 
@@ -38,7 +39,12 @@ export const route = createBrowserRouter([
       {
         path: 'orders',
         element: <Orders /> 
-      }
+      },
+      {
+        path: "products/:productId",
+        element: <ProductDetails />,
+      },
+
     ],
   },
 ]);

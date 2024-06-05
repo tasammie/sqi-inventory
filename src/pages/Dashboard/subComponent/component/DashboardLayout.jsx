@@ -3,7 +3,6 @@ import { Bell, LogInIcon, LogOut, Search, Settings, User } from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
 import useGetCurrentUser from "@/shared/hooks/useGetCurrentUser";
 
-
 const DashboardLayout = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -23,10 +22,10 @@ const DashboardLayout = ({ children }) => {
   ];
 
   return (
-    <div className="flex fixed w-full">
+    <div className="flex fixed w-full h-[100vh] max-h[100vh] overflow-y-hidden">
       {/* Sidebar */}
       <aside
-        className={`flex flex-col w-64 h-screen	 px-5 py-8 overflow-y-auto bg-white border-r dark:bg-gray-900 dark:border-gray-700 ${
+        className={`flex h-[100%] w-[30%] lg:w-[20%] flex-col px-5 py-8 overflow-y-hidden bg-white border-r dark:bg-gray-900 dark:border-gray-700 ${
           isSidebarOpen ? "block" : "hidden lg:block"
         }`}
       >
@@ -44,7 +43,7 @@ const DashboardLayout = ({ children }) => {
               <label className="px-3 text-xs text-gray-500 uppercase dark:text-gray-400">
                 Analytics
               </label>
-           
+
               {navItems.map((item) => (
                 <NavLink
                   key={item.label}
@@ -54,12 +53,18 @@ const DashboardLayout = ({ children }) => {
                       : `/dashboard/${item.label}`
                   }
                   className={({ isActive, isPending }) =>
-                    `${isPending ? "text-red-900" : isActive ? "text-blue-400" : "text-gray-600 dark:text-gray-200"} flex items-center px-3 py-2  rounded-lg  hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 active:bg-gray-100`
+                    `${
+                      isPending
+                        ? "text-red-900"
+                        : isActive
+                        ? "text-blue-400"
+                        : "text-gray-600 dark:text-gray-200"
+                    } flex items-center px-3 py-2  rounded-lg  hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 active:bg-gray-100`
                   }
                 >
                   {/* <NavItem label={item.label} icon={item.icon} /> */}
                   {item.icon}
-    <span className="mx-2 text-sm font-medium">{item.label}</span>
+                  <span className="mx-2 text-sm font-medium">{item.label}</span>
                 </NavLink>
               ))}
             </div>
@@ -72,15 +77,15 @@ const DashboardLayout = ({ children }) => {
               onClick={logout}
             >
               <LogInIcon className="w-5 h-5 ml-2.5 mr-1.5" />
-              <span >Logout</span>
+              <span>Logout</span>
             </div>
           </div>
         </div>
       </aside>
 
       {/* Main Content */}
-      <div className="flex-1 w-full">
-        <header className="relative bg-white dark:bg-gray-900">
+      <div className="flex-1 w-full h-[100%] 600 overflow-y-scroll">
+        <header className="fixed w-[100%] lg:w-[80%] bg-white dark:bg-gray-900 z-30 ">
           <div className="flex items-center justify-between p-6 border-b dark:border-gray-700">
             <div className="flex items-center">
               {/* Toggle Button */}
@@ -113,24 +118,24 @@ const DashboardLayout = ({ children }) => {
 
               <button className="flex items-center focus:outline-none">
                 {/* <User className="w-6 h-6 text-gray-600 dark:text-gray-300" /> */}
-                
+
                 <span className="hidden mx-2 text-gray-600 dark:text-gray-300 lg:block">
                   hello {currentUser?.firstName}
                 </span>
                 {currentUser?.profile_image && (
-          <img
-            src={currentUser.profile_image}
-            alt={`${currentUser.firstName}'s profile`}
-            className="w-10 h-10 rounded-full mx-2"
-          />
-        )}
+                  <img
+                    src={currentUser.profile_image}
+                    alt={`${currentUser.firstName}'s profile`}
+                    className="w-10 h-10 rounded-full mx-2"
+                  />
+                )}
               </button>
             </div>
           </div>
         </header>
 
         {/* Main Content Here */}
-        <main className="p-6 bg-white text-red-200">
+        <main className="p-6 bg-white text-red-200  mt-[80px]">
           {/* Your content goes here */}
           {children}
         </main>
@@ -143,7 +148,6 @@ const NavItem = ({ label, icon }) => (
   <a
     className="flex items-center px-3 py-2 text-gray-600 rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 active:bg-gray-100 "
     href="#"
-
   >
     {icon}
     <span className="mx-2 text-sm font-medium">{label}</span>
@@ -254,10 +258,10 @@ const MenuIcon = () => (
 
 export default DashboardLayout;
 
-
-
-   {/* {navItems.map((item) => (
+{
+  /* {navItems.map((item) => (
                 <Link to={item.label == 'Dashboard' ? '/dashboard' : `/dashboard/${item.label}`}>
                 <NavItem key={item.label} label={item.label} icon={item.icon}  />
                 </Link>
-              ))} */}
+              ))} */
+}

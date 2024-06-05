@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const UserRequest = axios.create({
-    baseURL: 'http://localhost:5000/api/v1', // replace with your base URL
+    baseURL: 'http://localhost:5000/api/v1', 
     headers: {
         'Content-Type': 'application/json',
     },

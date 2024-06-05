@@ -8,10 +8,13 @@ export const useGetCurrentUser = () => {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(null);
   const [reflect, setreflect] = useState(false);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const getCurrentUser = async () => {
     const token = localStorage.getItem("token");
+    if (!token) {
+      navigate('/')
+    }
     try {
       const res = await axios.get("http://localhost:5000/api/v1/users/checkAuth", {
         headers: { Authorization: "Bearer " + token },
@@ -21,7 +24,7 @@ export const useGetCurrentUser = () => {
 
         setreflect(true)
       
-      dispatch(setUser(res?.data))
+      // dispatch(setUser(res?.data))
       }
     } catch (error) {
         console.log(error);
