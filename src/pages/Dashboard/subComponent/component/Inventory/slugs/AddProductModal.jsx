@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { useGetProduct } from "./hooks/inventory-hook/useGetProducts";
+import { X } from "lucide-react";
+import { useGetProduct } from "../hooks/useGetProducts";
 
 const AddProductModal = ({ showProductForm, cancelButton }) => {
   const { addSingleProduct, handleChange, formData,  imagePreview  } =
@@ -20,10 +21,17 @@ const AddProductModal = ({ showProductForm, cancelButton }) => {
         <div className="fixed z-10 inset-0 flex items-center justify-center">
           <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
           <div className="relative bg-white rounded-lg overflow-hidden shadow-xl max-w-screen-md w-[40%] mt-24 m-4">
-            <div className="px-6 py-4">
+            <div className="px-6 py-4 flex justify-between items-center">
               <h3 className="text-lg leading-6 font-medium text-gray-900">
                 Add Product
               </h3>
+              <button
+                    type="button"
+                    onClick={cancelButton}
+                    className="inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:w-auto sm:text-sm"
+                  >
+                    <X/>
+                  </button> 
             </div>
             <div
               className="prose max-w-screen-md p-6 overflow-y-auto"
@@ -63,6 +71,22 @@ const AddProductModal = ({ showProductForm, cancelButton }) => {
                     type="number"
                     id="productPrice"
                     name="productPrice"
+                    className="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    required
+                    onChange={handleChange}
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="productCost"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Product Cost
+                  </label>
+                  <input
+                    type="number"
+                    id="productCost"
+                    name="productCost"
                     className="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     required
                     onChange={handleChange}
@@ -166,4 +190,3 @@ const AddProductModal = ({ showProductForm, cancelButton }) => {
 };
 
 export default AddProductModal;
-

@@ -1,11 +1,20 @@
-
 import axios from 'axios';
 
-const UserRequest = axios.create({
-    baseURL: 'http://localhost:5000/api/v1', 
-    headers: {
-        'Content-Type': 'application/json',
-    },
-});
+const baseURL = 'http://localhost:5000/api/v1'
 
-export { UserRequest };
+const publicRequest = axios.create({
+    baseURL,
+})
+
+const UserRequest = ()=>{
+    const token = localStorage.getItem("token");
+    return axios.create({
+        baseURL,
+        headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${token}`
+        }
+    })
+}
+
+export { UserRequest, publicRequest,  };

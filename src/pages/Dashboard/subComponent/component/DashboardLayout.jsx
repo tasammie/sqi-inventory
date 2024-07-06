@@ -12,13 +12,15 @@ const DashboardLayout = ({ children }) => {
 
   const { logout, currentUser } = useGetCurrentUser();
 
+
   const navItems = [
     { label: "Dashboard", icon: <DashboardIcon /> },
     { label: "Inventory", icon: <InventoryIcon /> },
     { label: "Orders", icon: <InventoryIcon /> },
+    { label: "Sales", icon: <InventoryIcon /> },
     { label: "Reports", icon: <ReportsIcon /> },
     { label: "Supplier", icon: <SupplierIcon /> },
-    { label: "Customers", icon: <CustomersIcon /> },
+    { label: "LogsActivities", icon: <CustomersIcon /> },
   ];
 
   return (
@@ -69,7 +71,7 @@ const DashboardLayout = ({ children }) => {
               ))}
             </div>
           </nav>
-          <div className="mt-28 space-y-1 -mx-3">
+          <div className="mt-20 space-y-1 -mx-3">
             <NavItem label="Settings" icon={<Settings className="w-5 h-5" />} />
 
             <div
@@ -85,7 +87,7 @@ const DashboardLayout = ({ children }) => {
 
       {/* Main Content */}
       <div className="flex-1 w-full h-[100%] 600 overflow-y-scroll">
-        <header className="fixed w-[100%] lg:w-[80%] bg-white dark:bg-gray-900 z-30 ">
+        <header className="fixed w-[100%]  lg:w-[80%] bg-white dark:bg-gray-900 z-30 ">
           <div className="flex items-center justify-between p-6 border-b dark:border-gray-700">
             <div className="flex items-center">
               {/* Toggle Button */}
@@ -97,7 +99,7 @@ const DashboardLayout = ({ children }) => {
               </button>
 
               {/* Search Input */}
-              <div className="relative mx-4 lg:mx-0">
+              {/* <div className="relative mx-4 lg:mx-0">
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                   <Search className="w-5 h-5 text-gray-400" />
                 </span>
@@ -107,7 +109,7 @@ const DashboardLayout = ({ children }) => {
                   type="text"
                   placeholder="Search"
                 />
-              </div>
+              </div> */}
             </div>
 
             {/* Right Header Icons */}
@@ -135,7 +137,7 @@ const DashboardLayout = ({ children }) => {
         </header>
 
         {/* Main Content Here */}
-        <main className="p-6 bg-white text-red-200  mt-[80px]">
+        <main className="p-6 bg-white text-black  mt-[80px]">
           {/* Your content goes here */}
           {children}
         </main>

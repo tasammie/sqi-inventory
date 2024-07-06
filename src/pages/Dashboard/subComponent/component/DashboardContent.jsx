@@ -1,4 +1,4 @@
-import Dashboard from "../.."
+import Dashboard from "./Dashboard/component"
 import DashboardForm from "./DashboardLayout"
 
 

@@ -1,6 +1,6 @@
-// useLogin.js
+
 import { useToast } from '@/components/ui/use-toast';
-import { UserRequest } from '@/shared/Api/request'; // Ensure this is the only import for UserRequest
+import { UserRequest } from '@/shared/Api/request';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -47,7 +47,7 @@ const useLogin = () => {
     const onSubmit = async (data) => {
         setisLoading(true);
         try {
-            const res = await UserRequest.post("/users/login", data);
+            const res = await UserRequest().post("/users/login", data);
             localStorage.setItem("token", res.data.token);
             toast({
                 title: "Success ✅✅",
