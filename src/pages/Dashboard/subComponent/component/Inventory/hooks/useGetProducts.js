@@ -1,6 +1,6 @@
 import { useToast } from "@/components/ui/use-toast";
 import { publicRequest } from "@/shared/Api/request";
-import axios from "axios";
+// import axios from "axios";
 import { useEffect, useState } from "react";
 
 export const useGetProduct = () => {
