@@ -24,7 +24,7 @@ const DashboardLayout = ({ children }) => {
   ];
 
   return (
-    <div className="flex fixed w-full h-[100vh] max-h[100vh] overflow-y-hidden">
+    <div className="flex fixed w-full h-[100vh] max-h[100vh] overflow-y-hidden ">
       {/* Sidebar */}
       <aside
         className={`flex h-[100%] w-[30%] lg:w-[20%] flex-col px-5 py-8 overflow-y-hidden bg-white border-r dark:bg-gray-900 dark:border-gray-700 ${
@@ -39,7 +39,7 @@ const DashboardLayout = ({ children }) => {
           />
         </a>
 
-        <div className="flex flex-col justify-between flex-1 mt-6">
+        <div className="flex flex-col justify-between flex-1 mt-6 ">
           <nav className="-mx-3 space-y-3 ">
             <div className="space-y-2">
               <label className="px-3 text-xs text-gray-500 uppercase dark:text-gray-400">
@@ -86,7 +86,7 @@ const DashboardLayout = ({ children }) => {
       </aside>
 
       {/* Main Content */}
-      <div className="flex-1 w-full h-[100%] 600 overflow-y-scroll">
+      <div className="flex-1 w-full h-[100%] 600 overflow-y-scroll ">
         <header className="fixed w-[100%]  lg:w-[80%] bg-white dark:bg-gray-900 z-30 ">
           <div className="flex items-center justify-between p-6 border-b dark:border-gray-700">
             <div className="flex items-center">

@@ -13,7 +13,7 @@ export const useGetDashboardStat = () => {
     setIsLoading(true);
     try {
       const res = await publicRequest.get("/sales/allTimeRecords");
-      console.log(res, "dashboard");
+      // console.log(res, "dashboard");
       setTotalCost(res?.data?.totalCost);
       setTotalProfit(res?.data.totalProfit);
       setTotalSales(res?.data.totalSales);
