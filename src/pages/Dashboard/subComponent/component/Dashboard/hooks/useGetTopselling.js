@@ -10,7 +10,6 @@ export const useGetTopselling = () => {
     setIsLoading(true);
     try {
       const res = await publicRequest.get("/product/topselling");
-    //   console.log(res, "result");
       setResult(res?.data?.result);
     } catch (error) {
       setIsError(error);

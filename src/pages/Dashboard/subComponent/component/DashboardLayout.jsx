@@ -112,18 +112,14 @@ const DashboardLayout = ({ children }) => {
               </div> */}
             </div>
 
-            {/* Right Header Icons */}
-            <div className="flex items-center">
+          
+             {/* Right Header Icons */}
+             <div className="flex items-center">
               <button className="mx-4 text-gray-600 dark:text-gray-300 focus:outline-none">
                 <Bell className="w-6 h-6" />
               </button>
 
-              <button className="flex items-center focus:outline-none">
-                {/* <User className="w-6 h-6 text-gray-600 dark:text-gray-300" /> */}
-
-                <span className="hidden mx-2 text-gray-600 dark:text-gray-300 lg:block">
-                  hello {currentUser?.firstName}
-                </span>
+              <Link to="/profile/edit" className="flex items-center focus:outline-none">
                 {currentUser?.profile_image && (
                   <img
                     src={currentUser.profile_image}
@@ -131,7 +127,10 @@ const DashboardLayout = ({ children }) => {
                     className="w-10 h-10 rounded-full mx-2"
                   />
                 )}
-              </button>
+                <span className="hidden mx-2 text-gray-600 dark:text-gray-300 lg:block">
+                  Hello, {currentUser?.firstName}
+                </span>
+              </Link>
             </div>
           </div>
         </header>
