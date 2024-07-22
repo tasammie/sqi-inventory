@@ -1,5 +1,5 @@
 import Dashboard from "./Dashboard/component"
-import DashboardForm from "./DashboardLayout"
+import DashboardForm from "./UserProfile/componenet/DashboardLayout"
 
 
 const DashboardContent = () => {

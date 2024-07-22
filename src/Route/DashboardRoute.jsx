@@ -1,5 +1,5 @@
 import DashboardContent from '@/pages/Dashboard/subComponent/component/DashboardContent'
-import DashboardLayout from '@/pages/Dashboard/subComponent/component/DashboardLayout'
+import DashboardLayout from '@/pages/Dashboard/subComponent/component/UserProfile/componenet/DashboardLayout'
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 

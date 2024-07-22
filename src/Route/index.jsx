@@ -12,6 +12,7 @@ import OrderedDetails from "@/pages/Dashboard/subComponent/component/Order/slugs
 import Sales from "@/pages/Dashboard/subComponent/component/Sales/component/Sales";
 import Supplier from "@/pages/Dashboard/subComponent/component/Supplier/component/Supplier";
 import LogsActivities from "@/pages/Dashboard/subComponent/component/Log/component/LogActivities";
+import EditProfilePage from "@/pages/Dashboard/subComponent/component/UserProfile/componenet/UserProfile";
 
 
 
@@ -34,8 +35,9 @@ export const route = createBrowserRouter([
       {
         index: true,
         element: <Dashboard />,
-        // element: <h1>hhhhhhhhhhhhhhhh</h1>
+       
       },
+     
       {
         path: 'inventory',
         element: <MainInventory/>,
@@ -47,7 +49,7 @@ export const route = createBrowserRouter([
           {
             path: ':id',
             element: <ProductDetails/>,
-            // element: <h1>hello</h1>
+           
           }
           
         ]
@@ -85,6 +87,10 @@ export const route = createBrowserRouter([
       {
         path: 'logactivity',
         element: <LogsActivities/>
+      },
+      {
+        path: 'profile/edit',
+        element: <EditProfilePage/>,
       }
    
 

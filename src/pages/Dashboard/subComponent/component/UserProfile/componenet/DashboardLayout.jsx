@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Bell, LogInIcon, LogOut, Search, Settings, User } from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
 import useGetCurrentUser from "@/shared/hooks/useGetCurrentUser";
+import { motion } from "framer-motion";
 
 const DashboardLayout = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -23,13 +24,28 @@ const DashboardLayout = ({ children }) => {
     { label: "LogsActivities", icon: <CustomersIcon /> },
   ];
 
+  const sidebarVariants = {
+    hidden: { x: "-100%" },
+    visible: { x: 0, transition: { duration: 0.5 } },
+  };
+
+  const linkVariants = {
+    hover: {
+      scale: 1.05,
+      backgroundColor: "#f0f0f0",
+      transition: { duration: 0.3 },
+    },
+  };
+
   return (
     <div className="flex fixed w-full h-[100vh] max-h[100vh] overflow-y-hidden ">
       {/* Sidebar */}
-      <aside
+      <motion.aside
         className={`flex h-[100%] w-[30%] lg:w-[20%] flex-col px-5 py-8 overflow-y-hidden bg-white border-r dark:bg-gray-900 dark:border-gray-700 ${
           isSidebarOpen ? "block" : "hidden lg:block"
         }`}
+        initial="hidden"
+        animate="visible"        variants={sidebarVariants}
       >
         <a href="#">
           <img
@@ -61,12 +77,20 @@ const DashboardLayout = ({ children }) => {
                         : isActive
                         ? "text-blue-400"
                         : "text-gray-600 dark:text-gray-200"
-                    } flex items-center px-3 py-2  rounded-lg  hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 active:bg-gray-100`
+                    } flex items-center px-3 py-2  rounded-lg  hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-gray-200  active:bg-gray-100`
                   }
                 >
                   {/* <NavItem label={item.label} icon={item.icon} /> */}
-                  {item.icon}
-                  <span className="mx-2 text-sm font-medium">{item.label}</span>
+                  <motion.div
+                    className="flex items-center"
+                    variants={linkVariants}
+                    whileHover="hover"
+                  >
+                    {item.icon}
+                    <span className="mx-2 text-sm font-medium">
+                      {item.label}
+                    </span>
+                  </motion.div>
                 </NavLink>
               ))}
             </div>
@@ -83,7 +107,7 @@ const DashboardLayout = ({ children }) => {
             </div>
           </div>
         </div>
-      </aside>
+      </motion.aside>
 
       {/* Main Content */}
       <div className="flex-1 w-full h-[100%] 600 overflow-y-scroll ">
@@ -119,7 +143,7 @@ const DashboardLayout = ({ children }) => {
                 <Bell className="w-6 h-6" />
               </button>
 
-              <Link to="/profile/edit" className="flex items-center focus:outline-none">
+              <Link to="/Dashboard/profile/edit" className="flex items-center focus:outline-none">
                 {currentUser?.profile_image && (
                   <img
                     src={currentUser.profile_image}
@@ -247,7 +271,7 @@ const MenuIcon = () => (
     viewBox="0 0 24 24"
     strokeWidth="1.5"
     stroke="currentColor"
-    className="w-6 h-6 text-gray-200"
+    className="w-6 h-6 text-red-800"
   >
     <path
       strokeLinecap="round"
