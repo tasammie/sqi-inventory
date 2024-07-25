@@ -16,6 +16,8 @@ import {
   NotebookTabs,
 } from "lucide-react";
 import { motion } from "framer-motion";
+import ChartDashboard from "./ChartDashboard";
+
 
 const Dashboard = () => {
   const {
@@ -264,6 +266,12 @@ const Dashboard = () => {
         </motion.div>
       </motion.div>
 
+      {/* {histogram chart } */}
+      <div className="">
+      <ChartDashboard />
+      </div>
+
+
       {/* Top Selling Product and Low Quantity Stock Sections */}
       <motion.div
         className="grid grid-cols-1 lg:grid-cols-3 gap-4"
@@ -303,10 +311,10 @@ const Dashboard = () => {
               </thead>
               <tbody>
                 {topSellingProducts?.slice(0, 3).map((product) => (
-                  <motion.tr key={product.id}
-                  className="hover:bg-gray-100 "
-                  variants={itemVariants}
-            transition={{ duration: 1 }}
+                  <tr key={product.id}
+                  className="hover:bg-gray-100  "
+                
+           
                 
                   >
                     <td className="px-6 py-4 border-b whitespace-nowrap">
@@ -321,7 +329,7 @@ const Dashboard = () => {
                     <td className="px-6 py-4 border-b whitespace-nowrap text-sm text-gray-800">
                       {product.price}
                     </td>
-                  </motion.tr>
+                  </tr>
                 ))}
               </tbody>
             </motion.table>

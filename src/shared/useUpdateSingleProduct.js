@@ -2,6 +2,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { publicRequest } from "./Api/request";
 
 export const useUpdateSingleProduct = () => {
     const [isLoading, setLoading] = useState(false);
@@ -10,13 +11,13 @@ export const useUpdateSingleProduct = () => {
     const [product, setProduct] = useState({});
     const { toast } = useToast();
     
-    // console.log(id, "ifdd");
+
     const updateProduct = async (formData, id) => {
         setLoading(true);
         try {
             console.log(formData, 'test');
-            const res = await axios.patch(
-                `http://localhost:5000/api/v1/product/updateproduct/${id}`,
+            const res = await publicRequest.patch(
+                `/product/updateproduct/${id}`,
                 formData,
                 {
                     headers: {

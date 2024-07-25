@@ -33,7 +33,6 @@ export const useSignUp = () => {
     const onSubmit = async (data) => {
         setisLoading(true)
         try {
-            // const res = await axios.post("http://localhost:5000/api/v1/users/register", data)
             const res = await UserRequest.post("/users/register", data);
             toast({
                 title: "Success",

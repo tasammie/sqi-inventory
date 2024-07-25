@@ -1,0 +1,34 @@
+.overview {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .overview-item {
+    text-align: center;
+  }
+  
+  .icon-purchase {
+    background: url('/path/to/purchase-icon.png') no-repeat center center;
+    width: 24px;
+    height: 24px;
+  }
+  
+  .icon-cost {
+    background: url('/path/to/cost-icon.png') no-repeat center center;
+    width: 14px;
+    height: 14px;
+  }
+  
+  .icon-cancel {
+    background: url('/path/to/cancel-icon.png') no-repeat center center;
+    width: 14px;
+    height: 14px;
+  }
+  
+  .icon-return {
+    background: url('/path/to/return-icon.png') no-repeat center center;
+    width: 14px;
+    height: 14px;
+  }
+  

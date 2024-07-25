@@ -3,6 +3,7 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { useParams } from "react-router-dom"
 import axios from "axios"
+import { publicRequest } from "@/shared/Api/request"
 
 export const useGetUpdateProduct = (product)=>{
     const [isLoading, setisLoading]= useState()
@@ -24,7 +25,7 @@ export const useGetUpdateProduct = (product)=>{
     const onSubmit = async (data) => {
         setisLoading(true);
         try {
-           const res = await axios.patch( `http://localhost:5000/api/v1/product/updateproduct/${id}`,
+           const res = await publicRequest.patch( `/product/updateproduct/${id}`,
             data)
             toast({
                 title: "Success ✅✅",

@@ -91,6 +91,10 @@ export const route = createBrowserRouter([
       {
         path: 'profile/edit',
         element: <EditProfilePage/>,
+      },
+      {
+        path: '*',
+        element: <h1>Page Not Found</h1>, // 404 page or redirect to a 404 page
       }
    
 

@@ -57,9 +57,7 @@ export const useGetProduct = () => {
       formDataState.append("image", imageFile);
       setLoading(true);
       try {
-        const res = await axios.post(
-          "http://localhost:5000/api/v1/product/addProduct",
-          formDataState,
+        const res = await publicRequest.post("/product/addProduct", formDataState,
           {
             headers: {
               "Content-Type": "multipart/form-data",
